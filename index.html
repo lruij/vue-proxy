@@ -11,6 +11,7 @@
   <div id="app"></div>
 
   <script type="module">
+    import { computed } from './computed.js'
     import { reactive } from './reactive.js'
     import { effect } from './effect.js'
     const user = reactive({
@@ -27,15 +28,21 @@
       document.getElementById('app').innerText =  `${user.name} - ${user.age} -- ${user.foo.bar.test}`
     })
 
-    setTimeout( () => {
-      user.name = 'dddd'
-      setTimeout( () => {
-        user.age = 20
-        setTimeout( () => {
-          user.foo.bar.test = true
-        }, 2000)
-      }, 2000)
-    }, 2000)
+    // setTimeout( () => {
+    //   user.name = 'dddd'
+    //   setTimeout( () => {
+    //     user.age = 20
+    //     setTimeout( () => {
+    //       user.foo.bar.test = true
+    //     }, 2000)
+    //   }, 2000)
+    // }, 2000)
+
+    window.user = user
+    window.t = computed(() => {
+      console.log('重新计算');
+      return user.age  + 10
+    })
   </script>
 </body>
 </html>
