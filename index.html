@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Proxy</title>
+</head>
+<body>
+
+  <div id="app"></div>
+
+  <script type="module">
+    import { reactive } from './reactive.js'
+    import { effect } from './effect.js'
+    const user = reactive({
+      name: 'lruij',
+      age: 18,
+      foo: {
+        bar: {
+          test: false
+        }
+      }
+    })
+
+    effect(() => {
+      document.getElementById('app').innerText =  `${user.name} - ${user.age} -- ${user.foo.bar.test}`
+    })
+
+    setTimeout( () => {
+      user.name = 'dddd'
+      setTimeout( () => {
+        user.age = 20
+        setTimeout( () => {
+          user.foo.bar.test = true
+        }, 2000)
+      }, 2000)
+    }, 2000)
+  </script>
+</body>
+</html>
